@@ -1,5 +1,9 @@
 # Dagger
 
+* Documentation: https://dagger.dev/
+* Example of usage: https://developer.android.com/training/dependency-injection/dagger-basics
+* Dagger 2 course: https://www.youtube.com/watch?v=G5P_vDL1ZLg&list=PL0SwNXKJbuNkYFUda5rlA-odAVyWItRCP
+
 ## Basics
 
 * **Dagger** - is a fully static, compile-time dependency injection framework for Java, Kotlin, and Android. 
@@ -8,7 +12,7 @@
 
 * **@Module** - annotates a class that will be able to provide the required objects. Modules are classes that contain code for creating objects. Each module includes objects that are close in meaning.
 
-* **@Provides** - annotates methods of a module to create a provider method binding. The method's return type is bound to its returned value. The **component** implementation will pass dependencies to the method as parameters.
+* **@Provides** - annotates methods of a module to create a provider method binding. The method's return type is bound to its returned value. It tells Dagger how to create instances of the type that this function returns. The **component** implementation will pass dependencies to the method as parameters.
 
 ---
 
@@ -25,6 +29,8 @@
 * Injectable constructors are annotated with **@Inject** and accept zero or more dependencies as arguments. **@Inject** can apply to at most one constructor per class.
 
 * For example, when the **inject(activity: SomeActivity)** method is called, the component will extract the necessary objects from the modules and place them in the SomeActivity fields.
+
+* Fields injected by Dagger cannot be private. Attempting to inject a private field with Dagger results in a compilation error.
 
 ---
 
@@ -92,9 +98,16 @@ Typically, the key annotation has a single member, whose value is used as the ma
 
 ---
 
-* **@Singleton** - identifies a type that the injector only instantiates once. Not inherited.
+* **@Singleton** - identifies a type that the injector only instantiates once. Not inherited. 
 
 * **@Scope** - identifies scope annotations. A scope annotation applies to a class containing an injectable constructor and governs how the injector reuses instances of the type. By default, if no scope annotation is present, the injector creates an instance (by injecting the type's constructor), uses the instance for one injection, and then forgets it. If a scope annotation is present, the injector may retain the instance for possible reuse in a later injection. If multiple threads can access a scoped instance, its implementation should be thread safe. The implementation of the scope itself is left up to the injector.
+
+* The rules for scoping are as follows:
+    * When a type is marked with a scope annotation, it can only be used by components that are annotated with the same scope.
+    * When a component is marked with a scope annotation, it can only provide types with that annotation or types that have no annotation.
+    * A subcomponent cannot use a scope annotation used by one of its parent components.
+
+* The scope annotation's name should not be explicit to the purpose it fulfills. Instead, it should be named depending on its lifetime because annotations can be reused by sibling components. For example, the name @ActivityScope is better than @LoginScope.
 
 * **@Reusable** - a scope that indicates that the object returned by a binding may be (but might not be) reused. **@Reusable** is useful when you want to limit the number of provisions of a type, but there is no specific lifetime over which there must be only one instance. It minimizes memory consumption, unlike **@Scope**, but there is no guarantee that it will not return the same object.
 
@@ -136,3 +149,13 @@ Each Produces method that contributes to the component will be called at most on
 * **@BindsInstance** - marks a method on a component builder or a parameter on a component factory as binding an instance to some key within the component. When using our own builder, we can avoid using the module, and directly pass the object to the component using the builder and marks the method with **@BindsInstance**.
 
 * For subcomponents, there is a similar annotation: **@Subcomponent.Builder**, which allows you to describe your builder. In addition, its builder allows you to slightly change the scheme for creating a subcomponent.
+
+---
+
+## Best practices when building a Dagger graph
+
+* When building the Dagger graph for your application:
+    * When you create a component, you should consider what element is responsible for the lifetime of that component. In this case, the **Application** class is in charge of **ApplicationComponent** and **LoginActivity** is in charge of **LoginComponent**.
+    * Use scoping only when it makes sense. Overusing scoping can have a negative effect on your app's runtime performance: the object is in memory as long as the component is in memory and getting a scoped object is more expensive. When Dagger provides the object, it uses **DoubleCheck** locking instead of a factory-type provider.
+
+* Dagger has a mechanism called **component dependencies**. Instead of the child component being a subcomponent of the parent component, the child component is dependent on the parent component. With that, there is no parent-child relationship; now **components** depend on others to get certain **dependencies**. Components need to expose types from the graph for dependent components to consume them.
