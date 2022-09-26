@@ -70,7 +70,7 @@ This annotation will generate a base class that the annotated class should exten
 
 Hilt provides the following components:
 
-![Figure 1. Generated components for Android classes.](../../res/fig_1.png)
+![Figure 1. Generated components for Android classes.](../../res/di/fig_1.png)
 > Figure 1. Generated components for Android classes.
 
 * Hilt doesn't generate a component for broadcast receivers because Hilt injects broadcast receivers directly from **SingletonComponent**.
@@ -79,7 +79,7 @@ Hilt provides the following components:
 
 * Hilt automatically creates and destroys instances of generated component classes following the lifecycle of the corresponding Android classes.
 
-![Figure 2. Component lifetimes.](../../res/fig_2.png)
+![Figure 2. Component lifetimes.](../../res/di/fig_2.png)
 > Figure 2. Component lifetimes.
 
 * ActivityRetainedComponent lives across configuration changes, so it is created at the first **Activity#onCreate()** and destroyed at the last **Activity#onDestroy()**.
@@ -92,7 +92,7 @@ Hilt provides the following components:
 
 * The table below lists scope annotations for each generated component:
 
-![Figure 3. Component scopes.](../../res/fig_3.png)
+![Figure 3. Component scopes.](../../res/di/fig_3.png)
 > Figure 3. Component scopes.
 
 * Scoping a binding to a component can be costly because the provided object stays in memory until that component is destroyed. Minimize the use of scoped bindings in your application. It is appropriate to use component-scoped bindings for bindings with an internal state that requires that same instance to be used within a certain scope, for bindings that need synchronization, or for bindings that you have measured to be expensive to create.
@@ -101,14 +101,14 @@ Hilt provides the following components:
 
 ## Component hierarchy
 
-![Figure 4. Hierarchy of the components that Hilt generates.](../../res/fig_4.png)
+![Figure 4. Hierarchy of the components that Hilt generates.](../../res/di/fig_4.png)
 > Figure 4. Hierarchy of the components that Hilt generates.
 
 ---
 
 ## Component default bindings
 
-![Figure 5. Component default bindings.](../../res/fig_4.png)
+![Figure 5. Component default bindings.](../../res/di/fig_4.png)
 > Figure 5. Component default bindings.
 
 ---
