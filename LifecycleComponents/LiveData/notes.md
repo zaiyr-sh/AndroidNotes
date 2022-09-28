@@ -2,6 +2,9 @@
 
 * Documentation: https://developer.android.com/reference/android/arch/lifecycle/LiveData
 * Example of usage: https://developer.android.com/topic/libraries/architecture/livedata
+* Unit-testing LiveData: https://medium.com/androiddevelopers/unit-testing-livedata-and-other-common-observability-problems-bb477262eb04
+* Reactive patterns using Transformations and MediatorLiveData: https://medium.com/androiddevelopers/livedata-beyond-the-viewmodel-reactive-patterns-using-transformations-and-mediatorlivedata-fda520ba00b7
+* ViewModels and LiveData: Patterns + AntiPatterns: https://medium.com/androiddevelopers/viewmodels-and-livedata-patterns-antipatterns-21efaef74a54 
 
 ## Basics
 
@@ -37,7 +40,7 @@
 
 2. Create an **Observer** object that defines the **onChanged()** method, which controls what happens when the **LiveData** object's held data changes. You usually create an **Observer** object in a UI controller, such as an activity or fragment.
 
-3. Attach the **Observer** object to the **LiveData** object using the **observe()** method. The **observe()** method takes a **LifecycleOwner** object. This subscribes the **Observer** object to the **LiveData** object so that it is notified of changes. You usually attach the Observer object in a UI controller, such as an activity or fragment.
+3. Attach the **Observer** object to the **LiveData** object using the **observe()** method. The **observe()** method takes a **LifecycleOwner** object. This subscribes the **Observer** object to the **LiveData** object so that it is notified of changes. You usually attach the **Observer** object in a UI controller, such as an activity or fragment.
 
 * **Note**: You can register an observer without an associated **LifecycleOwner** object using the **observeForever(Observer)** method. In this case, the observer is considered to be always active and is therefore always notified about modifications. You can remove these observers calling the **removeObserver(Observer)** method.
 
@@ -334,7 +337,7 @@ class MyViewModel(private val repository: PostalCodeRepository) : ViewModel() {
 
 * Livedata is used in the Domain layer. In business logic, various operators may often be needed. In this regard, RxJava and Flow options are preferable.
 
-* LiveData is very much tied to the View, you cannot subscribe to a non-UI thread and without a View. In fact, you can subscribe without a View, but you won't be able to unsubscribe,
+* LiveData is very much tied to the View, you cannot subscribe to a non-UI thread and without a View. In fact, you can subscribe without a View, but you won't be able to unsubscribe.
 
 * The Problem of Writing Unit Tests. Due to the fact that LiveData is very dependent on the UI, you must first implement your own mini version of Handler so that you can run tests at all.
 
