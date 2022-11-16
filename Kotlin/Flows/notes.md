@@ -7,6 +7,7 @@
 * Things to know about Flow’s shareIn and stateIn operators: https://medium.com/androiddevelopers/things-to-know-about-flows-sharein-and-statein-operators-20e6ccb2bc74
 * A safer way to collect flows from Android UIs: https://medium.com/androiddevelopers/a-safer-way-to-collect-flows-from-android-uis-23080b1f8bda
 * Live data, Flow, Shared flow & State flow: https://logidots.com/insights/live-data-flow-shared-flow-state-flow-2/
+* Kotlin Coroutines Flow. StateFlow. SharedFlow: https://www.youtube.com/watch?v=O0_5gc24KUo&list=PL0SwNXKJbuNmsKQW9mtTSxNn00oJlYOLA&index=8
 
 ---
 
