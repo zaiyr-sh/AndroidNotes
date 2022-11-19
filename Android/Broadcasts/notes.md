@@ -266,3 +266,5 @@ registerReceiver(receiver, filter, Manifest.permission.SEND_SMS, null )
 * Background Optimizations: https://www.youtube.com/watch?v=vBjTXKpaFj8
 * 3 ways to implement Android BroadcastReceiver: https://kiparo.com/android-broadcastreceiver-3-ways-to-implement#:~:text=Broadcast%20Receiver%20%2D%20%D1%8D%D1%82%D0%BE%20%D0%BC%D0%B5%D1%85%D0%B0%D0%BD%D0%B8%D0%B7%D0%BC%20%D0%B4%D0%BB%D1%8F,%D1%82%D0%BE%20%D0%BA%D1%83%D0%BF%D0%B8%D0%BB%D0%B8%20%D0%BF%D0%BE%D0%B4%D0%BF%D0%B8%D1%81%D0%BA%D1%83%20%D0%BD%D0%B0%20%D0%B6%D1%83%D1%80%D0%BD%D0%B0%D0%BB).
 * Android BroadcastReceiver Example Tutorial: https://www.digitalocean.com/community/tutorials/android-broadcastreceiver-example-tutorial
+* Android BroadcastReceiver Example Tutorial (ru): https://developer.alexanderklimov.ru/android/broadcast.php
+* AntiPattern: freezing a UI with Broadcast Receiver: https://gmariotti.blogspot.com/2013/02/antipattern-freezing-ui-with-broadcast.html
